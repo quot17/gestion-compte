@@ -14,7 +14,7 @@
 {% block content %}
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <div id="home-announcements" class="center">
-        {{ dynamicContent | markdown | raw }}
+        {{ dynamicContent | markdown | raw | nl2br }}
     </div>
 
     <div id="home-welcome" class="row center">
