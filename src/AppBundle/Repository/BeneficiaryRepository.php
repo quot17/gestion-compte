@@ -28,6 +28,7 @@ class BeneficiaryRepository extends \Doctrine\ORM\EntityRepository
             ->getOneOrNullResult();
     }
 
+
     /**
      * findFromAutoComplete
      *
