@@ -27,7 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MailController extends Controller
 {
-
     /**
      * Edit a message
      *
