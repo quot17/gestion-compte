@@ -56,6 +56,24 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                {% if app.user.beneficiary and app.user.beneficiary.ownedCommissions | length %}
+                    <div class="homebox">
+                        <h5><span class="white">Mes commissions</h5>
+                        {% for commission in app.user.beneficiary.ownedCommissions %}
+                            <a href="{{ path("commission_edit",{'id': commission.id }) }}" class="waves-effect waves-light btn blue-grey">
+                                Gérer la commission {{ commission.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if app.user.beneficiary and (app.user.beneficiary.membership | uptodate) and display_keys_shop %}
+                    <div class="homebox">
+                        <h5><span class="white"><i class="material-icons">build</i>&nbsp;Outils</span></h5>
+                        {% if display_keys_shop %}
+                            {{ render(controller("AppBundle:Code:homepageDashboard")) }}
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
                 <div class="homebox">
                     {% endif %}
