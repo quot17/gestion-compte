@@ -637,7 +637,7 @@ class BookingController extends Controller
      * Creates a form to validate / invalidate a shift entity.
      * // TODO: how to avoid having same createShiftValidateInvalidateForm in ShiftController ?
      *
-     * @param Shift $shift The shift entity
+     * @param Shift $bucket One shift of the bucket
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -654,6 +654,7 @@ class BookingController extends Controller
 
     /**
      * Creates a form to book a shift entity.
+     * // TODO: how to avoid having same createBookForm in ShiftController ?
      *
      * @param Shift $shift The shift entity
      *
@@ -662,8 +663,8 @@ class BookingController extends Controller
     private function createBookForm(Shift $shift)
     {
         $form = $this->get('form.factory')->createNamedBuilder('shift_book_forms_' . $shift->getId())
-            ->setAction($this->generateUrl('admin_shift_book', array('id' => $shift->getId())))
-            ->add('shifter', AutocompleteBeneficiaryType::class, array('label'=>'Numéro d\'adhérent ou nom du membre', 'required'=>true));
+            ->setAction($this->generateUrl('shift_book_admin', array('id' => $shift->getId())))
+            ->add('shifter', AutocompleteBeneficiaryType::class, array('label' => 'Numéro d\'adhérent ou nom du membre', 'required' => true));
 
         if ($this->useFlyAndFixed) {
             $form = $form->add('fixe', RadioChoiceType::class, [
@@ -681,5 +682,4 @@ class BookingController extends Controller
 
         return $form->getForm();
     }
-
 }
