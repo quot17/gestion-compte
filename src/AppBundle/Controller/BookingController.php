@@ -651,4 +651,35 @@ class BookingController extends Controller
             ->setMethod('POST')
             ->getForm();
     }
+
+    /**
+     * Creates a form to book a shift entity.
+     *
+     * @param Shift $shift The shift entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createBookForm(Shift $shift)
+    {
+        $form = $this->get('form.factory')->createNamedBuilder('shift_book_forms_' . $shift->getId())
+            ->setAction($this->generateUrl('admin_shift_book', array('id' => $shift->getId())))
+            ->add('shifter', AutocompleteBeneficiaryType::class, array('label'=>'Numéro d\'adhérent ou nom du membre', 'required'=>true));
+
+        if ($this->useFlyAndFixed) {
+            $form = $form->add('fixe', RadioChoiceType::class, [
+                'choices'  => [
+                    'Volant' => 0,
+                    'Fixe' => 1,
+                ],
+                'data' => 0
+            ]);
+        } else {
+            $form = $form->add('fixe', HiddenType::class, [
+                'data' => 0
+            ]);
+        }
+
+        return $form->getForm();
+    }
+
 }

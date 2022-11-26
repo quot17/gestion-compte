@@ -365,8 +365,6 @@ class PeriodController extends Controller
     {
         $session = new Session();
 
-        $form = $this->createPeriodPositionBookForm($period, $position);
-        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -539,71 +537,4 @@ class PeriodController extends Controller
         ));
     }
 
-    /**
-     * Creates a form to delete a period entity.
-     *
-     * @param Period $period The period entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createPeriodDeleteForm(Period $period)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('period_delete', array('id' => $period->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
-     * Creates a form to add a period position entity.
-     *
-     * @param Period $period The period entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createPeriodPositionAddForm(Period $period)
-    {
-        return $this->createForm(
-            PeriodPositionType::class,
-            new PeriodPosition(),
-            array(
-                'action' => $this->generateUrl(
-                    'period_position_new',
-                    array('id' => $period->getId())
-                )
-            ));
-    }
-
-    /**
-     * Creates a form to book a period position entity.
-     *
-     * @param Period $period The period entity
-     * @param PeriodPosition $position The period position entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createPeriodPositionBookForm(Period $period, PeriodPosition $position)
-    {
-        return $this->get('form.factory')->createNamedBuilder('positions_book_forms_' . $position->getId())
-            ->setAction($this->generateUrl('period_position_book', array('id' => $period->getId(), 'position' => $position->getId())))
-            ->setMethod('POST')
-            ->add('shifter', AutocompleteBeneficiaryType::class, array('label' => 'Numéro d\'adhérent ou nom du membre', 'required' => true))
-            ->getForm();
-    }
-
-    /**
-     * Creates a form to delete a period position entity.
-     *
-     * @param Period $period The period entity
-     * @param PeriodPosition $position The period position entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createPeriodPositionDeleteForm(Period $period, PeriodPosition $position)
-    {
-        return $this->get('form.factory')->createNamedBuilder('positions_delete_forms_' . $position->getId())
-            ->setAction($this->generateUrl('period_position_delete', array('id' => $period->getId(), 'position' => $position->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
 }

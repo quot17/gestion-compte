@@ -242,7 +242,7 @@ class Beneficiary
      */
     public function getDisplayNameWithMemberNumber(): string
     {
-        return '#' . $this->getMemberNumber() . ' ' . $this->getDisplayName();
+        return '#' . $this->getMemberNumber() . ' ' . $this->getFirstname() . ' ' . $this->getLastname();
     }
 
     public function getPublicDisplayName(): string
