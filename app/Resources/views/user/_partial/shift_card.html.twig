@@ -18,8 +18,6 @@
                     <button type="submit" class="btn green" title="Valider la participation">
                         <i class="material-icons left">check_circle</i>Valider la participation
                     </button>
-                {% endif %}
-            {{ form_end(shift_validate_invalidate_forms[shift.id]) }}
         {% endif %}
         {% if is_granted('free', shift) %}
             {% if shift.isPast %}
