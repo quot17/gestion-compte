@@ -177,6 +177,7 @@ class MembershipController extends Controller
 
         $in_progress_and_upcoming_shifts = $em->getRepository('AppBundle:Shift')->findInProgressAndUpcomingShiftsForMembership($member);
 
+        $in_progress_and_upcoming_shifts = $em->getRepository('AppBundle:Shift')->findInProgressAndUpcomingShiftsForMembership($member);
         return $this->render('member/show.html.twig', array(
             'member' => $member,
             'note' => $note,

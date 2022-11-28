@@ -551,6 +551,7 @@ class ShiftService
      * @param Beneficiary $beneficiary
      * @param Datetime $start_before
      * @param Datetime $start_after
+     * @param bool $excludeDismissed
      * @param Datetime $end_before
      * @return bool
      */
