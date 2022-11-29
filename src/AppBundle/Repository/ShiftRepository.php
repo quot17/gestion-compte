@@ -399,14 +399,18 @@ class ShiftRepository extends \Doctrine\ORM\EntityRepository
                     ->setParameter('start_after', $start_after);
 
         if ($end_before != null) {
-            if ($start_before != null) {
-                $qb = $qb->andwhere('((s.end < :end_before) or (s.start < :start_before))')
-                         ->setParameter('end_before', $end_before)
-                         ->setParameter('start_before', $start_before);
-            } else {
-                $qb = $qb->andwhere('s.end < :end_before')
-                         ->setParameter('end_before', $end_before);
-            }
+            $qb = $qb->andwhere('s.end < :end_before')
+                     ->setParameter('end_before', $end_before);
+        }
+
+        if ($start_before != null) {
+            $qb = $qb->andwhere('s.start < :start_before')
+                     ->setParameter('start_before', $start_before);
+        }
+
+        if ($end_after != null) {
+            $qb = $qb->andwhere('s.end > :end_after')
+                     ->setParameter('end_after', $end_after);
         }
 
         if ($start_before != null) {
