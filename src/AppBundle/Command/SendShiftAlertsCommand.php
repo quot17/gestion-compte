@@ -61,7 +61,7 @@ class SendShiftAlertsCommand extends ContainerAwareCommand
         // Build buckets from shifts
         $buckets = array();
         foreach ($shifts as $shift) {
-            $key = $shift->getIntervalCode().$shift->getJob()->getId();
+            $key = $shift->getIntervalCode();
             if (!isset($buckets[$key])) {
                 $bucket = new ShiftBucket();
                 $buckets[$key] = $bucket;
@@ -71,7 +71,8 @@ class SendShiftAlertsCommand extends ContainerAwareCommand
 
         $alerts = array();
         foreach ($buckets as $bucket) {
-            $shifterCount = $bucket->getShifterCount();
+            $alerts[] = new ShiftAlert($bucket, '0 personne inscrite');
+            /*$shifterCount = $bucket->getShifterCount();
             $shiftCount = count($bucket->getShifts());
             if ($shifterCount < $bucket->getJob()->getMinShifterAlert() && $shifterCount != $shiftCount) {
                 if ($shifterCount < 2) {
@@ -80,7 +81,7 @@ class SendShiftAlertsCommand extends ContainerAwareCommand
                     $issue = $shifterCount . " personnes inscrites sur " . $shiftCount;
                 }
                 $alerts[] = new ShiftAlert($bucket, $issue);
-            }
+            }*/
         }
         return $alerts;
     }
